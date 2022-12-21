@@ -1,0 +1,9 @@
+'use strict';
+
+require('dotenv').config();
+module.exports = {
+  "config": "db/config.js",
+  "models-path": "src/models",
+  "seeders-path": "db/seeders",
+  "migrations-path": "db/migrations",
+};
