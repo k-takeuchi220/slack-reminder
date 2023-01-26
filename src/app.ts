@@ -1,13 +1,11 @@
-const { App } = require('@slack/bolt');
-import * as noticeSrv from './services/noticeService';
+import { app } from './services/slackService';
+const openModalClicked = require("./slack/openModalClicked");
+const noticeRegister = require("./slack/noticeRegister");
+const appHomeOpened = require("./slack/appHomeOpened");
 
-// Initializes your app with your bot token and signing secret
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SLACK_SIGNING_SECRET
-});
-
-// penpen(app);
+openModalClicked();
+noticeRegister();
+appHomeOpened();
 
 (async () => {
   // Start your app
@@ -15,5 +13,4 @@ const app = new App({
 
   console.log('⚡️ Bolt app is running!');
 
-  noticeSrv.register("test, aaaa", 'hello world', ["3", "*", "*", "*"]);
 })();

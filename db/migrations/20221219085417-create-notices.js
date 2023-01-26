@@ -5,21 +5,31 @@ module.exports = {
     await queryInterface.createTable('notices', {
       id: {
         field: 'id',
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.STRING(26),
         primaryKey: true,
-        autoIncrement: true
-      },
-      userIds: {
-        type: Sequelize.STRING,
       },
       message: {
         type: Sequelize.STRING,
       },
       settings: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(8),
+        comment: '設定値(csv)',
       },
       nextNoticedAt: {
         type: Sequelize.DATE,
+        allowNull: true
+      },
+      lastNoticedAt: {
+        type: Sequelize.DATE,
+        allowNull: true
+      },
+      registerUserId: {
+        type: Sequelize.STRING(11),
+        comment: '登録ユーザID',
+      },
+      teamId: {
+        type: Sequelize.STRING(11),
+        comment: '対象ワークスペース',
         allowNull: true
       },
       updatedAt: {
@@ -30,7 +40,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    }).then(
+      () => queryInterface.addIndex('notices', ['nextNoticedAt'])
+    )
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('notices');
